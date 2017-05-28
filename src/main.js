@@ -6,6 +6,7 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 
 import './config/axios'
+import './config/progressbar'
 import keycloak from './config/keycloak'
 
 Vue.config.productionTip = false

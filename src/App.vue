@@ -5,15 +5,36 @@
     <div class="container">
       <router-view></router-view>
     </div>
+
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   import AppHeader from './components/Header'
+
   export default {
     name: 'app',
     components: {
       AppHeader
+    },
+    created () {
+      axios.interceptors.request.use(config => {
+        this.$Progress.start()
+        return config
+      }, error => {
+        this.$Progress.fail()
+        return Promise.reject(error)
+      })
+
+      axios.interceptors.response.use(response => {
+        this.$Progress.finish()
+        return response
+      }, error => {
+        this.$Progress.fail()
+        return Promise.reject(error)
+      })
     }
   }
 </script>
