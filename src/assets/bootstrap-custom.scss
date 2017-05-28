@@ -1,0 +1,12 @@
+// Customize Bootstrap by overriding its SCSS variables (see node_modules/bootstrap/scss/_variables.scss)
+@import url('https://fonts.googleapis.com/css?family=Lato:400,600');
+
+$font-family-sans-serif: "Lato", sans-serif;
+
+// Bootstrap's buttons don't use $font-family-sans-serif by default
+.btn {
+  font-family: $font-family-sans-serif;
+}
+
+$border-radius: 0;
+$brand-primary: #90a959;

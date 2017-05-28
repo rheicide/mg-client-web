@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mg-client-web:
+    image: nphung/mg-client-web
+    ports:
+      - 2015
+    restart: unless-stopped
+    networks:
+      - web
+    labels:
+      - "traefik.port=2015"
+      - "traefik.frontend.rule=Host:inbox.elarvee.xyz"
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway

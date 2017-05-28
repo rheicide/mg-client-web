@@ -1,0 +1,28 @@
+pipeline:
+  build:
+    image: node:6
+    commands:
+      - yarn install
+      - npm run build
+
+  docker:
+    image: plugins/docker
+    username: ${DOCKER_USERNAME}
+    password: ${DOCKER_PASSWORD}
+    repo: nphung/mg-client-web
+    tags:
+      - latest
+      - 1.0
+
+  deploy:
+    image: drillster/drone-rsync
+    hosts: [ "gcp-sea.elarvee.xyz" ]
+    user: nphung
+    key: ${SSH_KEY}
+    target: /opt/mg-client-web
+    include: [ "docker-compose.yml" ]
+    exclude: [ "*" ]
+    script:
+      - cd /opt/mg-client-web
+      - docker-compose pull
+      - docker-compose up -d --force-recreate
