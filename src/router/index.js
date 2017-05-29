@@ -22,6 +22,10 @@ export default new Router({
       name: 'MailDetails',
       component: MailDetails,
       props: true
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
