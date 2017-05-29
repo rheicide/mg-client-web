@@ -51,7 +51,7 @@
       font-size: smaller;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
       height: 35px;
       line-height: 35px;
       padding: 0;

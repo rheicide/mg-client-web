@@ -1,16 +1,21 @@
 <template>
   <div class="mail-details row" v-if="this.mail">
-    <div class="col">
+    <div class="col-12 col-md-10">
       <div><strong>From:</strong> {{ mail.from }}</div>
       <div><strong>To:</strong> {{ mail.to }}</div>
       <div><strong>Date:</strong> {{ date }}</div>
       <div><strong>Subject:</strong> {{ mail.subject }}</div>
+    </div>
 
-      <div class="mail-body">
-        <b-btn variant="link" v-if="mail.body_html" @click="showHtml = !showHtml">Toggle HTML</b-btn>
-        <div v-html="mail.body_html" v-if="showHtml"></div>
-        <div class="mail-body-plain" v-else>{{ mail.body_plain }}</div>
-      </div>
+    <div class="col-12 col-md-2 action-dropdown">
+      <b-dropdown text="Toggle HTML" split @click="showHtml = !showHtml">
+        <b-dropdown-item variant="danger" @click="deleteMail">Delete</b-dropdown-item>
+      </b-dropdown>
+    </div>
+
+    <div class="col-12 mail-body">
+      <div v-html="mail.body_html" v-if="showHtml"></div>
+      <div class="mail-body-plain" v-else>{{ mail.body_plain }}</div>
     </div>
   </div>
 </template>
@@ -36,6 +41,13 @@
       axios.get(`/mails/${this.id}`)
         .then(({data}) => { this.mail = data })
         .catch(err => console.log(err))
+    },
+    methods: {
+      deleteMail () {
+        axios.delete(`/mails/${this.id}`)
+          .then(() => this.$router.push('/'))
+          .catch(err => console.log(err))
+      }
     }
   }
 </script>
@@ -46,7 +58,7 @@
   }
 
   .mail-body {
-    margin-top: 35px;
+    margin-top: 20px;
   }
 
   .mail-body-plain {
@@ -58,5 +70,14 @@
     border: none;
     padding-left: 0;
     cursor: pointer;
+  }
+
+  .action-dropdown {
+    margin-top: 20px;
+
+    @media (min-width: 768px) {
+      margin-top: 0;
+      text-align: right;
+    }
   }
 </style>
