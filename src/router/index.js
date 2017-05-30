@@ -10,15 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/mails'
-    },
-    {
-      path: '/mails',
       name: 'Mails',
       component: Mails
     },
     {
-      path: '/mails/:id',
+      path: '/:id',
       name: 'MailDetails',
       component: MailDetails,
       props: true

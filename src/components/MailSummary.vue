@@ -1,5 +1,5 @@
 <template>
-  <router-link tag="div" class="mail row" :to="`/mails/${mail.id}`">
+  <router-link tag="div" class="mail row" :to="`/${mail.id}`">
     <div class="col-12 col-md-3" :title="mail.from">{{ mail.from }}</div>
     <div class="col-12 col-md mail-subject">{{ mail.subject }}</div>
     <div class="col-12 col-md-2 mail-date" :title="dateTitle">{{ date }}</div>
