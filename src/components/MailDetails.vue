@@ -39,13 +39,24 @@
     },
     created () {
       axios.get(`/mails/${this.id}`)
-        .then(({data}) => { this.mail = data })
+        .then(({data}) => {
+          this.mail = data
+
+          if (!this.mail.read) {
+            this.markMailAsRead()
+          }
+        })
         .catch(err => console.log(err))
     },
     methods: {
       deleteMail () {
         axios.delete(`/mails/${this.id}`)
           .then(() => this.$router.push('/'))
+          .catch(err => console.log(err))
+      },
+
+      markMailAsRead () {
+        axios.patch(`/mails/${this.id}`, { read: true })
           .catch(err => console.log(err))
       }
     }

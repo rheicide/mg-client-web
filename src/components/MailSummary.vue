@@ -1,6 +1,6 @@
 <template>
-  <router-link tag="div" class="mail row" :to="`/${mail.id}`">
-    <div class="col-12 col-md-3" :title="mail.from">{{ from }}</div>
+  <router-link tag="div" class="mail row" :class="{ unread: !mail.read }" :to="`/${mail.id}`">
+    <div class="col-12 col-md-3 mail-from" :title="mail.from">{{ from }}</div>
     <div class="col-12 col-md mail-subject">{{ mail.subject }}</div>
     <div class="col-12 col-md-2 mail-date" :title="dateTitle">{{ date }}</div>
   </router-link>
@@ -45,6 +45,12 @@
       cursor: pointer;
     }
 
+    &.unread {
+      .mail-from {
+        font-weight: bold;
+      }
+    }
+
     div {
       white-space: nowrap;
       overflow: hidden;
@@ -54,6 +60,10 @@
     .mail-subject, .mail-date {
       color: lighten(black, 50%);
       font-size: smaller;
+    }
+
+    .mail-date {
+      font-style: italic;
     }
 
     @media (min-width: 768px) {
@@ -68,6 +78,7 @@
 
       .mail-date {
         text-align: right;
+        font-style: normal;
       }
     }
   }
