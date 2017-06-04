@@ -2,7 +2,7 @@
   <div class="mails">
     <mail-summary v-for="mail in mails" :mail="mail" :key="mail.id"></mail-summary>
 
-    <div class="row pagination">
+    <div class="row pagination" v-show="mails.length > 0">
       <div class="col text-center">
         <b-button-group>
           <b-button @click="previous" :disabled="offset === 0">Previous</b-button>
@@ -42,7 +42,7 @@
     },
     methods: {
       fetch (limit, offset) {
-        axios.get('/mails', { params: { limit: limit, offset: offset } })
+        axios.get('/mails', {params: {limit: limit, offset: offset}})
           .then(({data}) => { this.mails = data || [] })
           .catch(err => console.log(err))
       },
