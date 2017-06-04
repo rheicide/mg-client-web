@@ -1,6 +1,6 @@
 <template>
   <router-link tag="div" class="mail row" :to="`/${mail.id}`">
-    <div class="col-12 col-md-3" :title="mail.from">{{ mail.from }}</div>
+    <div class="col-12 col-md-3" :title="mail.from">{{ from }}</div>
     <div class="col-12 col-md mail-subject">{{ mail.subject }}</div>
     <div class="col-12 col-md-2 mail-date" :title="dateTitle">{{ date }}</div>
   </router-link>
@@ -8,6 +8,7 @@
 
 <script>
   import moment from 'moment'
+  import addrs from 'email-addresses'
 
   export default {
     props: {
@@ -17,6 +18,10 @@
       }
     },
     computed: {
+      from () {
+        return addrs.parseOneAddress(this.mail.from).name
+      },
+
       date () {
         return moment(this.mail.date).fromNow()
       },
