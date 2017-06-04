@@ -21,7 +21,7 @@
     },
     created () {
       axios.interceptors.request.use(config => {
-        this.$Progress.start(1000 * 10)
+        this.$Progress.start(4500)
         return config
       }, error => {
         this.$Progress.fail()
