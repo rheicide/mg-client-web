@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-12 mail-body">
-      <div v-html="mail.body_html" v-if="showHtml"></div>
+      <iframe class="mail-body-html" :srcdoc="mail.body_html" v-if="mail.body_html" @load="resizeIframe"></iframe>
       <div class="mail-body-plain" v-else>{{ mail.body_plain }}</div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     ],
     data: () => ({
       mail: null,
-      showHtml: false
+      showHtml: true
     }),
     computed: {
       date () {
@@ -49,6 +49,10 @@
         .catch(err => console.log(err))
     },
     methods: {
+      resizeIframe (evt) {
+        evt.target.style.height = evt.target.contentWindow.document.body.scrollHeight + 'px'
+      },
+
       deleteMail () {
         axios.delete(`/mails/${this.id}`)
           .then(() => this.$router.push('/'))
@@ -70,6 +74,12 @@
 
   .mail-body {
     margin-top: 20px;
+  }
+
+  .mail-body-html {
+    width: 100%;
+    height: 0;
+    border: 0;
   }
 
   .mail-body-plain {
