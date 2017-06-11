@@ -23,6 +23,7 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
+  import bus from '@/event-bus'
 
   export default {
     props: [
@@ -37,7 +38,8 @@
         return moment(this.mail.date).format('ddd, MMM Do YYYY, h:mm a')
       }
     },
-    created () {
+    mounted () {
+      bus.$emit('loading', true)
       axios.get(`/mails/${this.id}`)
         .then(({data}) => {
           this.mail = data
@@ -51,6 +53,7 @@
     methods: {
       resizeIframe (evt) {
         evt.target.style.height = evt.target.contentWindow.document.body.scrollHeight + 'px'
+        bus.$emit('loading', false)
       },
 
       deleteMail () {
@@ -68,10 +71,6 @@
 </script>
 
 <style scoped lang="scss">
-  .mail-details {
-    margin-top: 10px;
-  }
-
   .mail-body {
     margin-top: 20px;
   }

@@ -4,6 +4,7 @@
 
     <div class="container">
       <router-view></router-view>
+      <loading-overlay></loading-overlay>
     </div>
 
     <vue-progress-bar></vue-progress-bar>
@@ -13,11 +14,13 @@
 <script>
   import axios from 'axios'
   import AppHeader from './components/Header'
+  import LoadingOverlay from './components/LoadingOverlay'
 
   export default {
     name: 'app',
     components: {
-      AppHeader
+      AppHeader,
+      LoadingOverlay
     },
     created () {
       axios.interceptors.request.use(config => {
@@ -43,4 +46,11 @@
   @import "./assets/bootstrap-custom";
   @import "~bootstrap/scss/bootstrap";
   @import "~bootstrap-vue/dist/bootstrap-vue";
+</style>
+
+<style scoped lang="scss">
+  .container {
+    padding-top: 10px;
+    min-height: calc(100vh - 56px);
+  }
 </style>

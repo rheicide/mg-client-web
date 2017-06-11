@@ -15,6 +15,7 @@
 
 <script>
   import axios from 'axios'
+  import bus from '@/event-bus'
   import MailSummary from './MailSummary'
 
   export default {
@@ -22,37 +23,40 @@
       MailSummary
     },
     data: () => ({
-      mails: []
+      mails: [],
+      defaultLimit: 20
     }),
     computed: {
       limit () {
-        return parseInt(this.$route.query.limit) || 10
+        return parseInt(this.$route.query.limit) || this.defaultLimit
       },
 
       offset () {
         return parseInt(this.$route.query.offset) || 0
       }
     },
-    created () {
+    mounted () {
       this.fetch(this.limit, this.offset)
     },
     beforeRouteUpdate (to, from, next) {
-      this.fetch(to.query.limit, to.query.offset)
+      this.fetch(to.query.limit || this.defaultLimit, to.query.offset || 0)
       next()
     },
     methods: {
       fetch (limit, offset) {
+        bus.$emit('loading', true)
         axios.get('/mails', {params: {limit: limit, offset: offset}})
           .then(({data}) => { this.mails = data || [] })
           .catch(err => console.log(err))
+          .then(() => bus.$emit('loading', false))
       },
 
       next () {
-        this.$router.push(`/?limit=${this.limit}&offset=${this.offset + 10}`)
+        this.$router.push(`/?limit=${this.limit}&offset=${this.offset + this.defaultLimit}`)
       },
 
       previous () {
-        this.$router.push(`/?limit=${this.limit}&offset=${this.offset - 10}`)
+        this.$router.push(`/?limit=${this.limit}&offset=${this.offset - this.defaultLimit}`)
       }
     }
   }
@@ -60,7 +64,7 @@
 
 <style scoped lang="scss">
   .pagination {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 </style>
