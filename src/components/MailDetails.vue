@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-12 mail-body">
-      <iframe class="mail-body-html" :srcdoc="mail.body_html" v-if="mail.body_html" @load="resizeIframe"></iframe>
+      <iframe class="mail-body-html" :srcdoc="mail.body_html" v-if="mail.body_html" @load="prepareIframe"></iframe>
       <div class="mail-body-plain" v-else>{{ mail.body_plain }}</div>
     </div>
   </div>
@@ -51,8 +51,14 @@
         .catch(err => console.log(err))
     },
     methods: {
-      resizeIframe (evt) {
+      prepareIframe (evt) {
         evt.target.style.height = evt.target.contentWindow.document.body.scrollHeight + 'px'
+
+        const links = evt.target.contentWindow.document.getElementsByTagName('a')
+        for (let link of links) {
+          link.target = '_blank'
+        }
+
         bus.$emit('loading', false)
       },
 
