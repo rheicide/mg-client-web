@@ -19,7 +19,7 @@
     },
     computed: {
       from () {
-        return addrs.parseOneAddress(this.mail.from).name
+        return addrs.parseOneAddress(this.mail.from).name || this.mail.from
       },
 
       date () {
