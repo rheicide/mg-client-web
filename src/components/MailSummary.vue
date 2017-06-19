@@ -39,13 +39,12 @@
   .mail {
     padding: 10px 0;
     border-bottom: 1px solid #d6d6d6;
-
-    &:hover {
-      background-color: #f0f0f0;
-      cursor: pointer;
-    }
+    cursor: pointer;
+    background-color: #f0f0f0;
 
     &.unread {
+      background-color: white;
+
       .mail-from {
         font-weight: bold;
       }
