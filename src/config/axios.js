@@ -1,6 +1,10 @@
+import 'es6-promise/auto'
+import promiseFinally from 'promise.prototype.finally'
 import axios from 'axios'
 import keycloak from './keycloak'
 import router from '../router'
+
+promiseFinally.shim()
 
 axios.defaults.baseURL = 'https://mg-client-api.elarvee.xyz'
 

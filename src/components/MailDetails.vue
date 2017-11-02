@@ -49,6 +49,7 @@
           }
         })
         .catch(err => console.log(err))
+        .finally(() => bus.$emit('loading', false))
     },
     methods: {
       prepareIframe (evt) {
@@ -58,8 +59,6 @@
         for (let link of links) {
           link.target = '_blank'
         }
-
-        bus.$emit('loading', false)
       },
 
       deleteMail () {
