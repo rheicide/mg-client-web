@@ -50,7 +50,6 @@
 
 <style scoped lang="scss">
   .container {
-    padding-top: 10px;
     min-height: calc(100vh - 56px);
   }
 </style>

@@ -77,6 +77,10 @@
 </script>
 
 <style scoped lang="scss">
+  .mail-details {
+    margin-top: 10px;
+  }
+
   .mail-body {
     margin-top: 20px;
   }
