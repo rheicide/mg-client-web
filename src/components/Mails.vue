@@ -48,7 +48,7 @@
         axios.get('/mails', {params: {limit: limit, offset: offset}})
           .then(({data}) => { this.mails = data || [] })
           .catch(err => console.log(err))
-          .then(() => bus.$emit('loading', false))
+          .finally(() => bus.$emit('loading', false))
       },
 
       next () {
