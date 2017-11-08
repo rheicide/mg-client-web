@@ -3,4 +3,11 @@
     regexp .*
     to {path} {path}/ /
   }
+
+  # By default, do no-cache: ask for validation based on ETag
+  header / Cache-Control "no-cache"
+  # Cache static assets, the file name changes when the content changes
+  header /static Cache-Control "max-age=31536000"
+
+  gzip
 }
