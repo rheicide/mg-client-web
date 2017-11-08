@@ -25,4 +25,5 @@ pipeline:
     script:
       - cd /opt/mg-client-web
       - docker-compose pull
-      - docker-compose up -d --force-recreate
+      - docker-compose down -v
+      - docker-compose up -d
