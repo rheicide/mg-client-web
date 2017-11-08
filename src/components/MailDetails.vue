@@ -8,13 +8,13 @@
     </div>
 
     <div class="col-12 col-md-2 action-dropdown">
-      <b-dropdown text="Toggle HTML" split @click="showHtml = !showHtml">
-        <b-dropdown-item variant="danger" @click="deleteMail">Delete</b-dropdown-item>
+      <b-dropdown text="Delete" split @click="deleteMail">
+        <b-dropdown-item @click="showHtml = !showHtml">Toggle HTML</b-dropdown-item>
       </b-dropdown>
     </div>
 
     <div class="col-12 mail-body">
-      <div v-if="mail.body_html">
+      <div v-if="mail.body_html && showHtml">
         <div v-show="loadingIframe">Loading...</div>
         <iframe class="mail-body-html" :srcdoc="mail.body_html" @load="prepareIframe"></iframe>
       </div>

@@ -51,5 +51,6 @@
 <style scoped lang="scss">
   .container {
     min-height: calc(100vh - 56px);
+    position: relative;
   }
 </style>

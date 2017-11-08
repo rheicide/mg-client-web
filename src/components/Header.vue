@@ -1,16 +1,13 @@
 <template>
   <div class="bg-primary">
-    <b-navbar toggleable type="inverse" variant="primary" class="container">
-      <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+    <b-navbar toggleable="md" type="dark" variant="primary" class="container">
+      <b-navbar-brand to="/">Inbox</b-navbar-brand>
 
-      <b-link class="navbar-brand" to="/">
-        <span>Inbox</span>
-      </b-link>
-
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-collapse is-nav id="nav_collapse">
-        <b-nav is-nav-bar class="ml-auto">
+        <b-navbar-nav class="ml-auto">
           <b-nav-item @click="logout">Log out</b-nav-item>
-        </b-nav>
+        </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
