@@ -14,7 +14,11 @@
     </div>
 
     <div class="col-12 mail-body">
-      <iframe class="mail-body-html" :srcdoc="mail.body_html" v-if="mail.body_html" @load="prepareIframe"></iframe>
+      <div v-if="mail.body_html">
+        <div v-show="loadingIframe">Loading...</div>
+        <iframe class="mail-body-html" :srcdoc="mail.body_html" @load="prepareIframe"></iframe>
+      </div>
+
       <div class="mail-body-plain" v-else>{{ mail.body_plain }}</div>
     </div>
   </div>
@@ -31,7 +35,8 @@
     ],
     data: () => ({
       mail: null,
-      showHtml: true
+      showHtml: true,
+      loadingIframe: true
     }),
     computed: {
       date () {
@@ -59,6 +64,8 @@
         for (let link of links) {
           link.target = '_blank'
         }
+
+        this.loadingIframe = false
       },
 
       deleteMail () {
